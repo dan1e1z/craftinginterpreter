@@ -50,12 +50,11 @@ public class Lox {
     Scanner scanner = new Scanner(source);
     List<Token> tokens = scanner.scanTokens();
     Parser parser = new Parser(tokens);
-    Expr expression = parser.parse();
+    List<Stmt> statements = parser.parse();
 
     // Stop if there was a syntax error.
     if (hadError) return;
-    interpreter.interpret(expression);
-    System.out.println(new AstPrinter().print(expression));
+    interpreter.interpret(statements);
   }
 
   static void error(int line, String message) {
@@ -67,7 +66,7 @@ public class Lox {
     hadError = true;
   }
 
- static void error(Token token, String message) {
+  static void error(Token token, String message) {
     if (token.type == TokenType.EOF) {
       report(token.line, " at end", message);
     } else {
@@ -75,10 +74,8 @@ public class Lox {
     }
   }
 
- static void runtimeError(RuntimeError error) {
-    System.err.println(error.getMessage() +
-        "\n[line " + error.token.line + "]");
+  static void runtimeError(RuntimeError error) {
+    System.err.println(error.getMessage() + "\n[line " + error.token.line + "]");
     hadRuntimeError = true;
   }
-
 }
