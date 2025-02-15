@@ -3,6 +3,7 @@ package lox;
 import static lox.TokenType.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 class Parser {
@@ -49,7 +50,6 @@ class Parser {
       consume(IDENTIFIER, "Expect superclass name.");
       superclass = new Expr.Variable(previous());
     }
-
 
     consume(LEFT_BRACE, "Expect '{' before class body.");
 
@@ -156,7 +156,7 @@ class Parser {
         Token name = ((Expr.Variable) expr).name;
         return new Expr.Assign(name, value);
       } else if (expr instanceof Expr.Get) {
-        Expr.Get get = (Expr.Get)expr;
+        Expr.Get get = (Expr.Get) expr;
         return new Expr.Set(get.object, get.name, value);
       }
 
@@ -227,8 +227,7 @@ class Parser {
           error(peek(), "Can't have more than 255 parameters.");
         }
 
-        parameters.add(
-            consume(IDENTIFIER, "Expect parameter name."));
+        parameters.add(consume(IDENTIFIER, "Expect parameter name."));
       } while (match(COMMA));
     }
     consume(RIGHT_PAREN, "Expect ')' after parameters.");
@@ -306,7 +305,7 @@ class Parser {
     return call();
   }
 
- private Expr finishCall(Expr callee) {
+  private Expr finishCall(Expr callee) {
     List<Expr> arguments = new ArrayList<>();
     if (!check(RIGHT_PAREN)) {
       do {
@@ -317,23 +316,21 @@ class Parser {
       } while (match(COMMA));
     }
 
-    Token paren = consume(RIGHT_PAREN,
-                          "Expect ')' after arguments.");
+    Token paren = consume(RIGHT_PAREN, "Expect ')' after arguments.");
 
     return new Expr.Call(callee, paren, arguments);
   }
 
- private Expr call() {
+  private Expr call() {
     Expr expr = primary();
 
-    while (true) { 
+    while (true) {
       if (match(LEFT_PAREN)) {
         expr = finishCall(expr);
-     } else if (match(DOT)) {
-        Token name = consume(IDENTIFIER,
-            "Expect property name after '.'.");
-         expr = new Expr.Get(expr, name);
-        } else {
+      } else if (match(DOT)) {
+        Token name = consume(IDENTIFIER, "Expect property name after '.'.");
+        expr = new Expr.Get(expr, name);
+      } else {
         break;
       }
     }
@@ -353,8 +350,7 @@ class Parser {
     if (match(SUPER)) {
       Token keyword = previous();
       consume(DOT, "Expect '.' after 'super'.");
-      Token method = consume(IDENTIFIER,
-          "Expect superclass method name.");
+      Token method = consume(IDENTIFIER, "Expect superclass method name.");
       return new Expr.Super(keyword, method);
     }
 

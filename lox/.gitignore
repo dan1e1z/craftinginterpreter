@@ -1,0 +1,16 @@
+# Ignore compiled Java files
+*.class
+
+# Ignore generated AST files (if you regenerate them with GenerateAst)
+lox/Expr.java
+lox/Stmt.java
+
+# Ignore temporary and system files
+*.log
+*.tmp
+.DS_Store
+
+# Ignore IDE-specific files (if using IntelliJ, VS Code, etc.)
+.idea/
+.vscode/
+*.iml

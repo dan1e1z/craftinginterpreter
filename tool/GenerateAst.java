@@ -33,10 +33,9 @@ public class GenerateAst {
         "Stmt",
         Arrays.asList(
             "Block      : List<Stmt> statements",
-            "Class      : Token name, List<Stmt.Function> methods",
+            "Class      : Token name, Expr.Variable superclass," + " List<Stmt.Function> methods",
             "Expression : Expr expression",
-            "Function   : Token name, List<Token> params," +
-                                      " List<Stmt> body",
+            "Function   : Token name, List<Token> params," + " List<Stmt> body",
             "If         : Expr condition, Stmt thenBranch," + " Stmt elseBranch",
             "Print      : Expr expression",
             "Return     : Token keyword, Expr value",
@@ -49,7 +48,7 @@ public class GenerateAst {
     String path = outputDir + "/" + baseName + ".java";
     PrintWriter writer = new PrintWriter(path, "UTF-8");
 
-    writer.println("package com.craftinginterpreters.lox;");
+    writer.println("package lox;");
     writer.println();
     writer.println("import java.util.List;");
     writer.println();

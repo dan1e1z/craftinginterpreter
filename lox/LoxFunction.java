@@ -11,8 +11,6 @@ class LoxFunction implements LoxCallable {
   LoxFunction(Stmt.Function declaration, Environment closure,
               boolean isInitializer) {
     this.isInitializer = isInitializer;
-
-  LoxFunction(Stmt.Function declaration, Environment closure) {
     this.closure = closure;
     this.declaration = declaration;
   }
