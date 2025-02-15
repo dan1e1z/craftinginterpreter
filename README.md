@@ -32,7 +32,7 @@ If there are no errors, the interpreter is ready to run.
 To start an interactive session, run:
 
 ```sh
-java com.craftinginterpreters.lox.Lox
+java lox.Lox
 ```
 
 Example usage:
@@ -49,7 +49,7 @@ To exit, press **Ctrl + C**.
 You can also execute Lox scripts from a file:
 
 ```sh
-java com.craftinginterpreters.lox.Lox scripts/example.lox
+java lox.Lox scripts/example.lox
 ```
 
 Example `scripts/example.lox`:
